@@ -1,6 +1,6 @@
-//modified by:
-//date:
-//purpose:
+//modified by: Cesar Lara
+//date: 02-15-18
+//purpose: Refactoring this program to make code neater and remove errors
 //
 // . This program should be converted to C++.
 // . Repair all warnings and errors.
@@ -90,7 +90,9 @@ int main(int argc, char **argv) {
 
     //Send the query to the server 
     int sent = 0;
-    while (sent < strlen(get)) {
+    // Fixed warning: comparison between signed and unsigned integers
+    // typecasted sent as an unsigned int value
+    while ((unsigned int)sent < strlen(get)) {
 	tmpres = send(sock, get+sent, strlen(get)-sent, 0);
 	if (tmpres == -1) {
 	    perror("send command, Can't send query");
@@ -117,7 +119,9 @@ int main(int argc, char **argv) {
 	    htmlcontent = buf;
 	}
 	if (htmlstart) {
-	    fprintf(stdout, htmlcontent);
+	    // Fixed warning: format not a string literal+no format arguments
+	    // used htmlcontent as string argument instead of printing directly
+	    fprintf(stdout, "%s", htmlcontent);
 	}
 	memset(buf, 0, tmpres);
     }
