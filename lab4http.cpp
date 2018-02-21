@@ -163,7 +163,7 @@ char *get_ip(char *host)
 	herror("Can't get IP host by name");
 	exit(1);
     }
-    if (inet_ntop(AF_INET, (void *)hent->h_addr_list[0], ip, iplen) == NULL) {
+    if (inet_ntop(AF_INET, (void *)hent->h_addr_list[0], ip, (iplen+1)) == NULL) {
 	perror("Can't resolve host with inet_ntop");
 	exit(1);
     }
